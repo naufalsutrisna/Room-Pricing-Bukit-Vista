@@ -101,34 +101,17 @@ async def predict(body: Payload):
 @app.get("/properties")
 async def get_properties():
     try:
-        # properties = distinct_data["property_name"].unique().tolist()
         properties = distinct_data["property_name"].unique().tolist()
-
-        # Create a dictionary to store property names and their room IDs
-        properties_with_room_ids = {}
-        for property_name in properties:
-            property_data = distinct_data[
-                distinct_data["property_name"] == property_name
-            ][["property_name", "room_id"]].drop_duplicates()
-            room_ids = property_data["room_id"].tolist()
-            properties_with_room_ids[property_name] = room_ids
 
         return JSONResponse(
             content={
                 "status": "success",
                 "data": {
-                    "properties": properties_with_room_ids,
+                    "properties": properties,
                 },
             }
         )
-        # return JSONResponse(
-        #     content={
-        #         "status": "success",
-        #         "data": {
-        #             "properties": properties,
-        #         },
-        #     }
-        # )
+
     except Exception as e:
         return JSONResponse(content={"status": "fail", "error": str(e)})
 
