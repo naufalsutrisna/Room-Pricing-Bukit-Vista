@@ -1,4 +1,6 @@
 numpy
 fastapi
-tensorflow
 uvicorn[standard]
+pandas
+joblib
+scikit-learn==1.4.2
