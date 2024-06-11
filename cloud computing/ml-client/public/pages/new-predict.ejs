@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+  <head>
+    <title>Room Pricing | Predict New</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/style/index.css" />
+    <link rel="stylesheet" href="/style/component.css" />
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="max-w-4xl mx-auto mb-8">
+      <div class="flex gap-3 items-center">
+        <a
+          href="/"
+          class="flex items-center justify-center w-7 h-7 rounded-lg border border-white/10 cursor-pointer"
+        >
+          <i class="bx bx-left-arrow-alt text-white text-lg"></i>
+        </a>
+        <p class="text-lg font-semibold text-white">Predict New Property</p>
+      </div>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-4xl mx-auto">
+      <form
+        hx-post="/predict/new"
+        hx-target="#result"
+        hx-swap="innerHTML"
+        class="flex flex-col gap-6"
+      >
+        <div>
+          <label
+            for="check_in"
+            class="block text-sm font-medium mb-2 dark:text-white"
+          >
+            Check In
+          </label>
+          <input
+            id="check_in"
+            class="input input-date"
+            type="date"
+            name="check_in"
+            required
+          />
+        </div>
+        <div>
+          <label
+            for="check_out"
+            class="block text-sm font-medium mb-2 dark:text-white"
+          >
+            Check Out
+          </label>
+          <input
+            id="check_out"
+            type="date"
+            name="check_out"
+            class="input input-date"
+          />
+        </div>
+        <div>
+          <label
+            for="distance"
+            class="block text-sm font-medium mb-2 dark:text-white"
+          >
+            Distance To Coastline
+          </label>
+          <input
+            id="distance"
+            type="number"
+            name="distance_to_coastline"
+            placeholder="distance to coastline"
+            class="input"
+            required
+          />
+        </div>
+        <div>
+          <label
+            for="lat"
+            class="block text-sm font-medium mb-2 dark:text-white"
+          >
+            Latitude
+          </label>
+          <input
+            id="lat"
+            type="number"
+            name="lat"
+            placeholder="latitude"
+            class="input"
+            required
+          />
+        </div>
+        <div>
+          <label
+            for="lng"
+            class="block text-sm font-medium mb-2 dark:text-white"
+          >
+            Longtitude
+          </label>
+          <input
+            id="lng"
+            type="number"
+            name="lng"
+            class="input"
+            placeholder="longtitude"
+            required
+          />
+        </div>
+        <button
+          type="submit"
+          class="block mt-2 text-sm px-4 w-full py-3 rounded-lg bg-indigo-800 hover:bg-indigo-900 text-white cursor-pointer"
+        >
+          Predict
+        </button>
+      </form>
+
+      <div id="result"></div>
+    </div>
+
+    <script
+      src="https://unpkg.com/htmx.org@1.9.12"
+      integrity="sha384-ujb1lZYygJmzgSwoxRggbCHcjc0rB2XoQrxeTUQyRjrOnlCoYta87iKBWq3EsdM2"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
