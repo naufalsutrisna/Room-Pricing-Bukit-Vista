@@ -1,0 +1,37 @@
+.card-result {
+  padding-top: 1.5rem;
+}
+
+.card-result__title {
+  font-size: 1.25rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  color: #ffffff;
+}
+
+.card-result__body {
+  background-color: #191919;
+  width: 100%;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding-bottom: 1.5rem;
+}
+
+.card-result__name {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.875rem;
+  margin-bottom: 0.125rem;
+}
+
+.card-result__data {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.input-date::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+}
