@@ -8,6 +8,7 @@ from pydantic import BaseModel
 import os
 import pandas as pd
 import joblib
+import numpy as np
 
 app = FastAPI()
 
@@ -66,9 +67,40 @@ def predictRoom(predicted_df, property_name, room_id, check_in, check_out):
     )
 
 
+def predict_new(distance_to_coastline, lat, lng, check_in, check_out):
+    today = date.today()
+
+    date_check_in = datetime.strptime(check_in, "%Y-%m-%d").date()
+    date_check_out = datetime.strptime(check_out, "%Y-%m-%d").date()
+
+    booking_window_days = booking_window(today, date_check_in)
+    stay_duration_days = stay_duration(date_check_in, date_check_out)
+
+    data = np.array(
+        [[booking_window_days, distance_to_coastline, stay_duration_days, lat, lng]]
+    )
+
+    prediction_result = random_forest_model.predict(data)
+
+    return prediction_result.tolist()
+
+
 class Payload(BaseModel):
     property_name: str
     room_id: int
+    check_in: str
+    check_out: str
+
+
+class PayloadNew(BaseModel):
+    lat: float
+    beds: int
+    bedroom: int
+    bathroom: int
+    parking: int
+    pool: int
+    beachfront: int
+    lng: float
     check_in: str
     check_out: str
 
@@ -98,8 +130,66 @@ async def predict(body: Payload):
         return JSONResponse(content={"status": "fail", "error": str(e)})
 
 
+@app.post("/predict/new")
+async def predictNew(body: PayloadNew):
+    try:
+        today = date.today()
+        date_check_in = datetime.strptime(body.check_in, "%Y-%m-%d").date()
+        date_check_out = datetime.strptime(body.check_out, "%Y-%m-%d").date()
+
+        booking_window_days = booking_window(today, date_check_in)
+
+        stay_duration_days = stay_duration(date_check_in, date_check_out)
+
+        array_data = np.array(
+            [
+                [
+                    booking_window_days,
+                    stay_duration_days,
+                    body.lat,
+                    body.beds,
+                    body.bedroom,
+                    body.bathroom,
+                    body.parking,
+                    body.pool,
+                    body.beachfront,
+                    body.lng,
+                ]
+            ]
+        )
+
+        columns = [
+            "booking_window",
+            "stay_duration_in_days",
+            "lat",
+            "beds",
+            "bedroom",
+            "bathroom",
+            "parking",
+            "pool",
+            "beachfront",
+            "lng",
+        ]
+
+        data = pd.DataFrame(array_data, columns=columns)
+
+        model = joblib.load("random_forest_model.pkl")
+        prediction = model.predict(data)
+
+        return JSONResponse(
+            content={
+                "status": "success",
+                "data": {
+                    "prediction": format_currency(prediction[0]),
+                },
+            }
+        )
+    except Exception as e:
+        return JSONResponse(content={"status": "fail", "error": str(e)})
+
+
 @app.get("/properties")
-async def get_properties():
+async def get_propert1ies():
     try:
         properties = distinct_data["property_name"].unique().tolist()
 

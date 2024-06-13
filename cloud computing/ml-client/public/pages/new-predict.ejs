@@ -12,7 +12,7 @@
     />
   </head>
   <body>
-    <div class="max-w-4xl mx-auto mb-8">
+    <div class="max-w-5xl mx-auto mb-8">
       <div class="flex gap-3 items-center">
         <a
           href="/"
@@ -23,13 +23,130 @@
         <p class="text-lg font-semibold text-white">Predict New Property</p>
       </div>
     </div>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-4xl mx-auto">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-5xl mx-auto">
       <form
         hx-post="/predict/new"
         hx-target="#result"
         hx-swap="innerHTML"
         class="flex flex-col gap-6"
       >
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label
+              for="beds"
+              class="block text-sm font-medium mb-2 dark:text-white"
+            >
+              Beds
+            </label>
+            <input
+              id="beds"
+              type="number"
+              name="beds"
+              class="input"
+              placeholder="Beds"
+              required
+            />
+          </div>
+          <div>
+            <label
+              for="bedroom"
+              class="block text-sm font-medium mb-2 dark:text-white"
+            >
+              Bedroom
+            </label>
+            <input
+              id="bedroom"
+              type="number"
+              name="bedroom"
+              class="input"
+              placeholder="Bedroom"
+              required
+            />
+          </div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label
+              for="bathroom"
+              class="block text-sm font-medium mb-2 dark:text-white"
+            >
+              Bathroom
+            </label>
+            <input
+              id="bathroom"
+              type="number"
+              name="bathroom"
+              class="input"
+              placeholder="longtitude"
+              required
+            />
+          </div>
+          <div>
+            <label
+              for="parking"
+              class="block text-sm font-medium mb-2 dark:text-white"
+            >
+              Parking
+            </label>
+            <input
+              id="parking"
+              type="number"
+              name="parking"
+              class="input"
+              placeholder="parking"
+              min="0"
+              max="1"
+              required
+            />
+            <span class="text-xs text-white/40 mt-0.5">
+              Please enter a value between 0 and 1
+            </span>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label
+              for="pool"
+              class="block text-sm font-medium mb-2 dark:text-white"
+            >
+              Pool
+            </label>
+            <input
+              id="pool"
+              type="number"
+              name="pool"
+              class="input"
+              placeholder="Pool"
+              min="0"
+              max="1"
+              required
+            />
+            <span class="text-xs text-white/40 mt-0.5">
+              Please enter a value between 0 and 1
+            </span>
+          </div>
+          <div>
+            <label
+              for="beachfront"
+              class="block text-sm font-medium mb-2 dark:text-white"
+            >
+              Beach Front
+            </label>
+            <input
+              id="beachfront"
+              type="number"
+              name="beachfront"
+              class="input"
+              placeholder="Beachfront"
+              min="0"
+              max="1"
+              required
+            />
+            <span class="text-xs text-white/40 mt-0.5">
+              Please enter a value between 0 and 1
+            </span>
+          </div>
+        </div>
         <div>
           <label
             for="check_in"
@@ -61,22 +178,6 @@
         </div>
         <div>
           <label
-            for="distance"
-            class="block text-sm font-medium mb-2 dark:text-white"
-          >
-            Distance To Coastline
-          </label>
-          <input
-            id="distance"
-            type="number"
-            name="distance_to_coastline"
-            placeholder="distance to coastline"
-            class="input"
-            required
-          />
-        </div>
-        <div>
-          <label
             for="lat"
             class="block text-sm font-medium mb-2 dark:text-white"
           >
@@ -88,6 +189,9 @@
             name="lat"
             placeholder="latitude"
             class="input"
+            step="0.000001"
+            min="-180"
+            max="180"
             required
           />
         </div>
@@ -104,6 +208,9 @@
             name="lng"
             class="input"
             placeholder="longtitude"
+            step="0.000001"
+            min="-180"
+            max="180"
             required
           />
         </div>

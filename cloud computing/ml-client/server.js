@@ -68,20 +68,6 @@ router.post('/predict', async (req, res) => {
            <p class="card-result__name">Prediction</p>
            <p class="card-result__data">${data.prediction}</p>
          </div>
-         <div>
-           <p class="card-result__name">Current Price</p>
-           <p class="card-result__data">${data.current_price}</p>
-         </div>
-         <div class="grid grid-cols-2 gap-4">
-           <div>
-             <p class="card-result__name">Stay Duration (day)</p>
-             <p class="card-result__data">${data.stay_duration_day} Days</p>
-           </div>
-           <div>
-             <p class="card-result__name">Booking Window (day)</p>
-             <p class="card-result__data">${data.booking_window_day} Days</p>
-           </div>
-         </div>
        </div>
       </div>
     `
@@ -93,7 +79,6 @@ router.post('/predict', async (req, res) => {
 
 router.post('/predict/new', async (req, res) => {
   try {
-    console.log(JSON.stringify(req.body))
     const options = {
       method: 'POST',
       body: JSON.stringify(req.body),
@@ -115,6 +100,7 @@ router.post('/predict/new', async (req, res) => {
         </div>
       </div>
     `
+
     res.send(html)
   } catch (error) {
     console.log(error)
